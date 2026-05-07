@@ -16,14 +16,8 @@ resource "azurerm_mysql_flexible_server" "this" {
     size_gb = var.storage_size_gb
   }
 
-  backup {
-    retention_days            = var.backup_retention_days
-    geo_redundant_backup_enabled = var.geo_redundant_backup_enabled
-  }
-
-  identity {
-    type = "SystemAssigned"
-  }
+  backup_retention_days            = var.backup_retention_days
+  geo_redundant_backup_enabled = var.geo_redundant_backup_enabled
 }
 
 resource "azurerm_mysql_flexible_database" "this" {

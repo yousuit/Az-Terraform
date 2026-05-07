@@ -24,10 +24,6 @@ resource "azurerm_postgresql_flexible_server" "this" {
       mode = var.high_availability_mode
     }
   }
-
-  identity {
-    type = "SystemAssigned"
-  }
 }
 
 resource "azurerm_postgresql_flexible_server_database" "this" {

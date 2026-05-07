@@ -16,14 +16,14 @@
 # ── RESOURCE GROUPS ──────────────────────────────────────────
 module "spoke_rg" {
   source   = "../modules/resource_group"
-  name     = local.spoke_rg_name     # rg-web-qoc-we-prod-001
+  name     = local.spoke_rg_name # rg-web-qoc-we-prod-001
   location = var.location
   tags     = local.common_tags
 }
 
 module "pdns_rg" {
   source   = "../modules/resource_group"
-  name     = local.pdns_rg_name      # rg-pdns-qoc-we-prod-001
+  name     = local.pdns_rg_name # rg-pdns-qoc-we-prod-001
   location = var.location
   tags     = local.common_tags
 }
@@ -31,7 +31,7 @@ module "pdns_rg" {
 # ── SPOKE VIRTUAL NETWORK ─────────────────────────────────────
 module "spoke_vnet" {
   source              = "../modules/virtual_network"
-  name                = "vnet-${local.spoke_suffix}"          # vnet-qoc-we-prod-001
+  name                = "vnet-${local.spoke_suffix}" # vnet-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   address_space       = [var.spoke_vnet_cidr]
@@ -41,7 +41,7 @@ module "spoke_vnet" {
 # ── SPOKE NSGs ────────────────────────────────────────────────
 module "nsg_app" {
   source              = "../modules/network_security_group"
-  name                = "nsg-app-${local.spoke_suffix}"       # nsg-app-qoc-we-prod-001
+  name                = "nsg-app-${local.spoke_suffix}" # nsg-app-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   tags                = local.common_tags
@@ -64,7 +64,7 @@ module "nsg_app" {
 
 module "nsg_func" {
   source              = "../modules/network_security_group"
-  name                = "nsg-func-${local.spoke_suffix}"      # nsg-func-qoc-we-prod-001
+  name                = "nsg-func-${local.spoke_suffix}" # nsg-func-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   tags                = local.common_tags
@@ -87,7 +87,7 @@ module "nsg_func" {
 
 module "nsg_pe" {
   source              = "../modules/network_security_group"
-  name                = "nsg-pe-${local.spoke_suffix}"        # nsg-pe-qoc-we-prod-001
+  name                = "nsg-pe-${local.spoke_suffix}" # nsg-pe-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   tags                = local.common_tags
@@ -121,25 +121,25 @@ module "nsg_pe" {
 
 module "nsg_dbk_pub" {
   source              = "../modules/network_security_group"
-  name                = "nsg-dbkpub-${local.spoke_suffix}"    # nsg-dbkpub-qoc-we-prod-001
+  name                = "nsg-dbkpub-${local.spoke_suffix}" # nsg-dbkpub-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   tags                = local.common_tags
-  security_rules      = []   # Databricks manages its own rules
+  security_rules      = [] # Databricks manages its own rules
 }
 
 module "nsg_dbk_prv" {
   source              = "../modules/network_security_group"
-  name                = "nsg-dbkprv-${local.spoke_suffix}"    # nsg-dbkprv-qoc-we-prod-001
+  name                = "nsg-dbkprv-${local.spoke_suffix}" # nsg-dbkprv-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   tags                = local.common_tags
-  security_rules      = []   # Databricks manages its own rules
+  security_rules      = [] # Databricks manages its own rules
 }
 
 module "nsg_mysql" {
   source              = "../modules/network_security_group"
-  name                = "nsg-mysql-${local.spoke_suffix}"     # nsg-mysql-qoc-we-prod-001
+  name                = "nsg-mysql-${local.spoke_suffix}" # nsg-mysql-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   tags                = local.common_tags
@@ -173,7 +173,7 @@ module "nsg_mysql" {
 
 module "nsg_psql" {
   source              = "../modules/network_security_group"
-  name                = "nsg-psql-${local.spoke_suffix}"      # nsg-psql-qoc-we-prod-001
+  name                = "nsg-psql-${local.spoke_suffix}" # nsg-psql-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   tags                = local.common_tags
@@ -207,7 +207,7 @@ module "nsg_psql" {
 
 module "nsg_aci" {
   source              = "../modules/network_security_group"
-  name                = "nsg-aci-${local.spoke_suffix}"       # nsg-aci-qoc-we-prod-001
+  name                = "nsg-aci-${local.spoke_suffix}" # nsg-aci-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   tags                = local.common_tags
@@ -241,7 +241,7 @@ module "nsg_aci" {
 
 module "nsg_aif" {
   source              = "../modules/network_security_group"
-  name                = "nsg-aif-${local.spoke_suffix}"       # nsg-aif-qoc-we-prod-001
+  name                = "nsg-aif-${local.spoke_suffix}" # nsg-aif-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   tags                = local.common_tags
@@ -278,7 +278,7 @@ module "nsg_aif" {
 # Inbound access is via private endpoint in snet-pe
 module "snet_app" {
   source               = "../modules/subnet"
-  name                 = "snet-app-${local.spoke_suffix}"     # snet-app-qoc-we-prod-001
+  name                 = "snet-app-${local.spoke_suffix}" # snet-app-qoc-we-prod-001
   resource_group_name  = module.spoke_rg.name
   virtual_network_name = module.spoke_vnet.name
   address_prefix       = var.spoke_subnet_cidrs.app_service_vnetint
@@ -293,7 +293,7 @@ module "snet_app" {
 
 module "snet_func" {
   source               = "../modules/subnet"
-  name                 = "snet-func-${local.spoke_suffix}"    # snet-func-qoc-we-prod-001
+  name                 = "snet-func-${local.spoke_suffix}" # snet-func-qoc-we-prod-001
   resource_group_name  = module.spoke_rg.name
   virtual_network_name = module.spoke_vnet.name
   address_prefix       = var.spoke_subnet_cidrs.function_app_vnetint
@@ -308,18 +308,18 @@ module "snet_func" {
 
 # Shared PE subnet — PE network policies disabled so private endpoints resolve correctly
 module "snet_pe" {
-  source               = "../modules/subnet"
-  name                 = "snet-pe-${local.spoke_suffix}"      # snet-pe-qoc-we-prod-001
-  resource_group_name  = module.spoke_rg.name
-  virtual_network_name = module.spoke_vnet.name
-  address_prefix       = var.spoke_subnet_cidrs.private_endpoints
-  nsg_id               = module.nsg_pe.id
+  source                                    = "../modules/subnet"
+  name                                      = "snet-pe-${local.spoke_suffix}" # snet-pe-qoc-we-prod-001
+  resource_group_name                       = module.spoke_rg.name
+  virtual_network_name                      = module.spoke_vnet.name
+  address_prefix                            = var.spoke_subnet_cidrs.private_endpoints
+  nsg_id                                    = module.nsg_pe.id
   private_endpoint_network_policies_enabled = false
 }
 
 module "snet_dbk_pub" {
   source               = "../modules/subnet"
-  name                 = "snet-dbkpub-${local.spoke_suffix}"  # snet-dbkpub-qoc-we-prod-001
+  name                 = "snet-dbkpub-${local.spoke_suffix}" # snet-dbkpub-qoc-we-prod-001
   resource_group_name  = module.spoke_rg.name
   virtual_network_name = module.spoke_vnet.name
   address_prefix       = var.spoke_subnet_cidrs.databricks_public
@@ -337,7 +337,7 @@ module "snet_dbk_pub" {
 
 module "snet_dbk_prv" {
   source               = "../modules/subnet"
-  name                 = "snet-dbkprv-${local.spoke_suffix}"  # snet-dbkprv-qoc-we-prod-001
+  name                 = "snet-dbkprv-${local.spoke_suffix}" # snet-dbkprv-qoc-we-prod-001
   resource_group_name  = module.spoke_rg.name
   virtual_network_name = module.spoke_vnet.name
   address_prefix       = var.spoke_subnet_cidrs.databricks_private
@@ -356,7 +356,7 @@ module "snet_dbk_prv" {
 # SQL MI: no nsg_id here — the sql_managed_instance module creates and associates its own NSG + UDR
 module "snet_sqlmi" {
   source               = "../modules/subnet"
-  name                 = "snet-sqlmi-${local.spoke_suffix}"   # snet-sqlmi-qoc-we-prod-001
+  name                 = "snet-sqlmi-${local.spoke_suffix}" # snet-sqlmi-qoc-we-prod-001
   resource_group_name  = module.spoke_rg.name
   virtual_network_name = module.spoke_vnet.name
   address_prefix       = var.spoke_subnet_cidrs.sql_mi
@@ -374,7 +374,7 @@ module "snet_sqlmi" {
 # MySQL and PostgreSQL Flexible: VNet injection via dedicated delegated subnet (no private endpoint)
 module "snet_mysql" {
   source               = "../modules/subnet"
-  name                 = "snet-mysql-${local.spoke_suffix}"   # snet-mysql-qoc-we-prod-001
+  name                 = "snet-mysql-${local.spoke_suffix}" # snet-mysql-qoc-we-prod-001
   resource_group_name  = module.spoke_rg.name
   virtual_network_name = module.spoke_vnet.name
   address_prefix       = var.spoke_subnet_cidrs.mysql_flexible
@@ -388,7 +388,7 @@ module "snet_mysql" {
 
 module "snet_psql" {
   source               = "../modules/subnet"
-  name                 = "snet-psql-${local.spoke_suffix}"    # snet-psql-qoc-we-prod-001
+  name                 = "snet-psql-${local.spoke_suffix}" # snet-psql-qoc-we-prod-001
   resource_group_name  = module.spoke_rg.name
   virtual_network_name = module.spoke_vnet.name
   address_prefix       = var.spoke_subnet_cidrs.postgresql_flexible
@@ -403,7 +403,7 @@ module "snet_psql" {
 # Container Instance: VNet injection via dedicated delegated subnet
 module "snet_aci" {
   source               = "../modules/subnet"
-  name                 = "snet-aci-${local.spoke_suffix}"     # snet-aci-qoc-we-prod-001
+  name                 = "snet-aci-${local.spoke_suffix}" # snet-aci-qoc-we-prod-001
   resource_group_name  = module.spoke_rg.name
   virtual_network_name = module.spoke_vnet.name
   address_prefix       = var.spoke_subnet_cidrs.container_instances
@@ -418,7 +418,7 @@ module "snet_aci" {
 # AI Foundry compute clusters / online endpoints: VNet injection
 module "snet_aif" {
   source               = "../modules/subnet"
-  name                 = "snet-aif-${local.spoke_suffix}"     # snet-aif-qoc-we-prod-001
+  name                 = "snet-aif-${local.spoke_suffix}" # snet-aif-qoc-we-prod-001
   resource_group_name  = module.spoke_rg.name
   virtual_network_name = module.spoke_vnet.name
   address_prefix       = var.spoke_subnet_cidrs.ai_foundry_compute
@@ -428,7 +428,7 @@ module "snet_aif" {
 # ── UDR — force all egress through hub firewall ───────────────
 module "udr" {
   source              = "../modules/route_table"
-  name                = "rt-${local.spoke_suffix}"            # rt-qoc-we-prod-001
+  name                = "rt-${local.spoke_suffix}" # rt-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   tags                = local.common_tags
@@ -624,7 +624,7 @@ module "dns_aml_notebooks" {
 # ── MONITORING (deploy before all workloads) ──────────────────
 module "monitoring" {
   source              = "../modules/monitoring"
-  name                = "${var.project}-${local.spoke_suffix}"  # web-qoc-we-prod-001
+  name                = "${var.project}-${local.spoke_suffix}" # web-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   retention_days      = var.log_retention_days
@@ -680,7 +680,7 @@ module "function_app" {
 module "storage_account" {
   count                      = var.enable_storage ? 1 : 0
   source                     = "../modules/storage_account"
-  name                       = local.storage_name               # stqocwebweprod001
+  name                       = local.storage_name # stqocwebweprod001
   resource_group_name        = module.spoke_rg.name
   location                   = var.location
   private_endpoint_subnet_id = module.snet_pe.id
@@ -693,7 +693,7 @@ module "storage_account" {
 module "redis_cache" {
   count                      = var.enable_redis ? 1 : 0
   source                     = "../modules/redis_cache"
-  name                       = "redis-${var.project}-${local.spoke_suffix}"  # redis-web-qoc-we-prod-001
+  name                       = "redis-${var.project}-${local.spoke_suffix}" # redis-web-qoc-we-prod-001
   resource_group_name        = module.spoke_rg.name
   location                   = var.location
   sku_name                   = var.redis_sku
@@ -708,7 +708,7 @@ module "redis_cache" {
 module "sql_database" {
   count                      = var.enable_sql_db ? 1 : 0
   source                     = "../modules/sql_database"
-  server_name                = "sql-${var.project}-${local.spoke_suffix}"    # sql-web-qoc-we-prod-001
+  server_name                = "sql-${var.project}-${local.spoke_suffix}" # sql-web-qoc-we-prod-001
   resource_group_name        = module.spoke_rg.name
   location                   = var.location
   admin_login                = var.sql_admin_login
@@ -724,7 +724,7 @@ module "sql_database" {
 module "sql_managed_instance" {
   count               = var.enable_sql_mi ? 1 : 0
   source              = "../modules/sql_managed_instance"
-  name                = "sqlmi-${var.project}-${local.spoke_suffix}"         # sqlmi-web-qoc-we-prod-001
+  name                = "sqlmi-${var.project}-${local.spoke_suffix}" # sqlmi-web-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   subnet_id           = module.snet_sqlmi.id
@@ -740,7 +740,7 @@ module "sql_managed_instance" {
 module "service_bus" {
   count                      = var.enable_service_bus ? 1 : 0
   source                     = "../modules/service_bus"
-  name                       = "sb-${var.project}-${local.spoke_suffix}"     # sb-web-qoc-we-prod-001
+  name                       = "sb-${var.project}-${local.spoke_suffix}" # sb-web-qoc-we-prod-001
   resource_group_name        = module.spoke_rg.name
   location                   = var.location
   sku                        = var.service_bus_sku
@@ -755,7 +755,7 @@ module "service_bus" {
 module "event_grid" {
   count                      = var.enable_event_grid ? 1 : 0
   source                     = "../modules/event_grid"
-  name                       = "evgt-${var.project}-${local.spoke_suffix}"   # evgt-web-qoc-we-prod-001
+  name                       = "evgt-${var.project}-${local.spoke_suffix}" # evgt-web-qoc-we-prod-001
   resource_group_name        = module.spoke_rg.name
   location                   = var.location
   private_endpoint_subnet_id = module.snet_pe.id
@@ -767,7 +767,7 @@ module "event_grid" {
 module "openai" {
   count                      = var.enable_openai ? 1 : 0
   source                     = "../modules/openai"
-  name                       = "oai-${var.project}-${local.spoke_suffix}"    # oai-web-qoc-we-prod-001
+  name                       = "oai-${var.project}-${local.spoke_suffix}" # oai-web-qoc-we-prod-001
   resource_group_name        = module.spoke_rg.name
   location                   = var.openai_location
   deployments                = var.openai_deployments
@@ -780,7 +780,7 @@ module "openai" {
 module "search_service" {
   count                      = var.enable_search ? 1 : 0
   source                     = "../modules/search_service"
-  name                       = "srch-${var.project}-${local.spoke_suffix}"   # srch-web-qoc-we-prod-001
+  name                       = "srch-${var.project}-${local.spoke_suffix}" # srch-web-qoc-we-prod-001
   resource_group_name        = module.spoke_rg.name
   location                   = var.location
   sku                        = var.search_sku
@@ -793,7 +793,7 @@ module "search_service" {
 module "speech_service" {
   count                      = var.enable_speech ? 1 : 0
   source                     = "../modules/speech_service"
-  name                       = "spch-${var.project}-${local.spoke_suffix}"   # spch-web-qoc-we-prod-001
+  name                       = "spch-${var.project}-${local.spoke_suffix}" # spch-web-qoc-we-prod-001
   resource_group_name        = module.spoke_rg.name
   location                   = var.location
   private_endpoint_subnet_id = module.snet_pe.id
@@ -805,7 +805,7 @@ module "speech_service" {
 module "ai_vision" {
   count                      = var.enable_ai_vision ? 1 : 0
   source                     = "../modules/ai_vision"
-  name                       = "aiv-${var.project}-${local.spoke_suffix}"    # aiv-web-qoc-we-prod-001
+  name                       = "aiv-${var.project}-${local.spoke_suffix}" # aiv-web-qoc-we-prod-001
   resource_group_name        = module.spoke_rg.name
   location                   = var.location
   private_endpoint_subnet_id = module.snet_pe.id
@@ -817,7 +817,7 @@ module "ai_vision" {
 module "databricks" {
   count                 = var.enable_databricks ? 1 : 0
   source                = "../modules/databricks"
-  name                  = "dbw-${var.project}-${local.spoke_suffix}"         # dbw-web-qoc-we-prod-001
+  name                  = "dbw-${var.project}-${local.spoke_suffix}" # dbw-web-qoc-we-prod-001
   resource_group_name   = module.spoke_rg.name
   location              = var.location
   vnet_id               = module.spoke_vnet.id
@@ -833,10 +833,10 @@ module "databricks" {
 module "mysql_flexible" {
   count               = var.enable_mysql_flexible ? 1 : 0
   source              = "../modules/mysql_flexible"
-  name                = "mysql-${var.project}-${local.spoke_suffix}"         # mysql-web-qoc-we-prod-001
+  name                = "mysql-${var.project}-${local.spoke_suffix}" # mysql-web-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
-  delegated_subnet_id = module.snet_mysql.id       # VNet injection — not a private endpoint
+  delegated_subnet_id = module.snet_mysql.id # VNet injection — not a private endpoint
   private_dns_zone_id = module.dns_mysql.id
   admin_login         = var.mysql_admin_login
   admin_password      = var.mysql_admin_password
@@ -850,10 +850,10 @@ module "mysql_flexible" {
 module "postgresql_flexible" {
   count               = var.enable_postgresql ? 1 : 0
   source              = "../modules/postgresql_flexible"
-  name                = "psql-${var.project}-${local.spoke_suffix}"          # psql-web-qoc-we-prod-001
+  name                = "psql-${var.project}-${local.spoke_suffix}" # psql-web-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
-  delegated_subnet_id = module.snet_psql.id        # VNet injection — not a private endpoint
+  delegated_subnet_id = module.snet_psql.id # VNet injection — not a private endpoint
   private_dns_zone_id = module.dns_postgresql.id
   admin_login         = var.postgresql_admin_login
   admin_password      = var.postgresql_admin_password
@@ -871,7 +871,7 @@ module "cosmosdb_nosql" {
   resource_group_name        = module.spoke_rg.name
   location                   = var.location
   private_endpoint_subnet_id = module.snet_pe.id
-  private_dns_zone_id        = module.dns_cosmos_nosql.id   # privatelink.documents.azure.com
+  private_dns_zone_id        = module.dns_cosmos_nosql.id # privatelink.documents.azure.com
   tags                       = local.common_tags
 }
 
@@ -883,7 +883,7 @@ module "cosmosdb_mongo" {
   resource_group_name        = module.spoke_rg.name
   location                   = var.location
   private_endpoint_subnet_id = module.snet_pe.id
-  private_dns_zone_id        = module.dns_cosmos_mongo.id   # privatelink.mongo.cosmos.azure.com
+  private_dns_zone_id        = module.dns_cosmos_mongo.id # privatelink.mongo.cosmos.azure.com
   tags                       = local.common_tags
 }
 
@@ -892,21 +892,21 @@ module "cosmosdb_mongo" {
 # VNet: compute subnet for clusters/endpoints + PE subnet for workspace inbound
 # DNS: two zones — api.azureml.ms + notebooks.azure.net
 module "ai_foundry" {
-  count                          = var.enable_ai_foundry ? 1 : 0
-  source                         = "../modules/ai_foundry"
-  name                           = "aif-${var.project}-${local.spoke_suffix}"  # aif-web-qoc-we-prod-001
-  resource_group_name            = module.spoke_rg.name
-  location                       = var.location
-  compute_subnet_id              = module.snet_aif.id           # VNet injection for compute clusters
-  private_endpoint_subnet_id     = module.snet_pe.id            # Inbound PE for the workspace
-  private_dns_zone_api_id        = module.dns_aml_api.id        # privatelink.api.azureml.ms
-  private_dns_zone_notebooks_id  = module.dns_aml_notebooks.id  # privatelink.notebooks.azure.net
-  storage_account_id             = module.storage_account[0].id # requires enable_storage = true
-  key_vault_id                   = var.hub_keyvault_id
-  application_insights_id        = module.monitoring.app_insights_id
-  container_registry_id          = ""
-  tags                           = local.common_tags
-  depends_on                     = [module.storage_account]
+  count                         = var.enable_ai_foundry ? 1 : 0
+  source                        = "../modules/ai_foundry"
+  name                          = "aif-${var.project}-${local.spoke_suffix}" # aif-web-qoc-we-prod-001
+  resource_group_name           = module.spoke_rg.name
+  location                      = var.location
+  compute_subnet_id             = module.snet_aif.id           # VNet injection for compute clusters
+  private_endpoint_subnet_id    = module.snet_pe.id            # Inbound PE for the workspace
+  private_dns_zone_api_id       = module.dns_aml_api.id        # privatelink.api.azureml.ms
+  private_dns_zone_notebooks_id = module.dns_aml_notebooks.id  # privatelink.notebooks.azure.net
+  storage_account_id            = module.storage_account[0].id # requires enable_storage = true
+  key_vault_id                  = var.hub_keyvault_id
+  application_insights_id       = module.monitoring.app_insights_id
+  container_registry_id         = ""
+  tags                          = local.common_tags
+  depends_on                    = [module.storage_account]
 }
 
 # Container Instance — VNet injection via delegated subnet (no private endpoint)
@@ -914,7 +914,7 @@ module "ai_foundry" {
 module "container_instance" {
   count               = var.enable_container_instance ? 1 : 0
   source              = "../modules/container_instance"
-  name                = "aci-${var.project}-${local.spoke_suffix}"           # aci-web-qoc-we-prod-001
+  name                = "aci-${var.project}-${local.spoke_suffix}" # aci-web-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = var.location
   subnet_id           = module.snet_aci.id
@@ -926,7 +926,7 @@ module "container_instance" {
 module "bing_search" {
   count               = var.enable_bing_search ? 1 : 0
   source              = "../modules/bing_search"
-  name                = "bing-${var.project}-${local.spoke_suffix}"          # bing-web-qoc-we-prod-001
+  name                = "bing-${var.project}-${local.spoke_suffix}" # bing-web-qoc-we-prod-001
   resource_group_name = module.spoke_rg.name
   location            = "global"
   tags                = local.common_tags
