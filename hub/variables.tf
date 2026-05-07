@@ -10,6 +10,16 @@ variable "org" {
   type        = string
 }
 
+variable "environment" {
+  description = "Environment this hub serves: dev | staging | prod | shared"
+  type        = string
+  default     = "shared"
+  validation {
+    condition     = contains(["dev", "staging", "prod", "shared"], var.environment)
+    error_message = "Must be: dev | staging | prod | shared"
+  }
+}
+
 variable "location" {
   type    = string
   default = "westeurope"
@@ -58,13 +68,40 @@ variable "hub_subnet_cidrs" {
 }
 
 # ── FEATURE FLAGS ─────────────────────────────────────────────
-variable "enable_firewall"    { type = bool; default = true }
-variable "enable_app_gateway" { type = bool; default = true }
-variable "enable_vpn_gateway" { type = bool; default = false }
-variable "enable_bastion"     { type = bool; default = true }
-variable "enable_apim"        { type = bool; default = true }
-variable "enable_jumpbox"     { type = bool; default = true }
-variable "enable_agent_vm"    { type = bool; default = true }
+variable "enable_firewall" {
+  type    = bool
+  default = true
+}
+
+variable "enable_app_gateway" {
+  type    = bool
+  default = true
+}
+
+variable "enable_vpn_gateway" {
+  type    = bool
+  default = false
+}
+
+variable "enable_bastion" {
+  type    = bool
+  default = true
+}
+
+variable "enable_apim" {
+  type    = bool
+  default = true
+}
+
+variable "enable_jumpbox" {
+  type    = bool
+  default = true
+}
+
+variable "enable_agent_vm" {
+  type    = bool
+  default = true
+}
 
 # ── HUB SERVICE CONFIGS ───────────────────────────────────────
 variable "firewall_sku_tier"          { type = string; default = "Standard" }

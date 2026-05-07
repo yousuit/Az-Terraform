@@ -13,6 +13,7 @@ subscription_id = "00000000-0000-0000-0000-000000000001"   # replace
 # All hub resources: {type}-{org}-hub-{region_short}-{instance}
 # Examples: rg-qoc-hub-we-001 / azfw-qoc-hub-we-001 / kv-qoc-hub-we-001
 org          = "qoc"
+environment  = "shared"
 location     = "westeurope"
 region_short = "we"
 instance     = "001"
