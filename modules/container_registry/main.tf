@@ -10,21 +10,6 @@ resource "azurerm_container_registry" "this" {
   identity {
     type = "SystemAssigned"
   }
-
-  dynamic "network_rule_set" {
-    for_each = var.sku == "Premium" ? [1] : []
-    content {
-      default_action = "Deny"
-
-      dynamic "virtual_network" {
-        for_each = var.allowed_subnet_ids
-        content {
-          action    = "Allow"
-          subnet_id = virtual_network.value
-        }
-      }
-    }
-  }
 }
 
 resource "azurerm_private_endpoint" "acr" {

@@ -13,20 +13,18 @@ resource "azurerm_servicebus_namespace" "this" {
 }
 
 resource "azurerm_servicebus_queue" "this" {
-  for_each     = toset(var.queues)
-  name         = each.key
-  namespace_id = azurerm_servicebus_namespace.this.id
-
-  enable_partitioning = false
+  for_each              = toset(var.queues)
+  name                  = each.key
+  namespace_id          = azurerm_servicebus_namespace.this.id
+  partitioning_enabled  = false
   max_size_in_megabytes = 1024
 }
 
 resource "azurerm_servicebus_topic" "this" {
-  for_each     = toset(var.topics)
-  name         = each.key
-  namespace_id = azurerm_servicebus_namespace.this.id
-
-  enable_partitioning = false
+  for_each             = toset(var.topics)
+  name                 = each.key
+  namespace_id         = azurerm_servicebus_namespace.this.id
+  partitioning_enabled = false
 }
 
 resource "azurerm_private_endpoint" "servicebus" {

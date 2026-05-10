@@ -823,8 +823,8 @@ module "databricks" {
   vnet_id               = module.spoke_vnet.id
   public_subnet_name    = module.snet_dbk_pub.name
   private_subnet_name   = module.snet_dbk_prv.name
-  public_subnet_nsg_id  = module.nsg_dbk_pub.id
-  private_subnet_nsg_id = module.nsg_dbk_prv.id
+  public_subnet_nsg_association_id  = module.snet_dbk_pub.id
+  private_subnet_nsg_association_id = module.snet_dbk_prv.id
   tags                  = local.common_tags
 }
 
